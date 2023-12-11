@@ -1,2 +1,2 @@
 # secrel-cli
-Command line interface for a Secure Release Pipeline
+Command line interface for cATO Secure Release (SecRel) pipelines
