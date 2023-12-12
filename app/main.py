@@ -1,6 +1,10 @@
 import click
 import subprocess
 
+# TODO: implement CI
+
+ORGANIZATION = 'department-of-veterans-affairs'
+PIPELINE_NAME = 'lighthouse-tornado-secrel-pipeline'
 
 @click.group()
 def secrel():
@@ -24,7 +28,7 @@ def run(ref):
     subprocess.run(
         [
             'gh', 'workflow', 'run', 'pipeline.yml',
-            '-R', 'department-of-veterans-affairs/lighthouse-tornado-secrel-pipeline',
+            '-R', f'{ORGANIZATION}/{PIPELINE_NAME}',
             '-r', ref
         ],
         check=True
@@ -43,7 +47,7 @@ def test(ref):
     subprocess.run(
         [
             'gh', 'workflow', 'run', 'e2e.yml',
-            '-R', 'department-of-veterans-affairs/lighthouse-tornado-secrel-pipeline',
+            '-R', f'{ORGANIZATION}/{PIPELINE_NAME}',
             '-r', ref
         ],
         check=True
