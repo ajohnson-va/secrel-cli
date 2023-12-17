@@ -1,10 +1,18 @@
 import click
-import subprocess
 
+import utils
+
+# TODO: setuptools
 # TODO: implement CI
+# TODO: gh issue
+# TODO: gh run list
 
 ORGANIZATION = 'department-of-veterans-affairs'
-PIPELINE_NAME = 'lighthouse-tornado-secrel-pipeline'
+PIPELINE_REPO = 'lighthouse-tornado-secrel-pipeline'
+PIPELINE_WORKFLOW = 'pipeline.yml'
+PIPELINE_E2E_TESTS = 'e2e.yml'
+PIPELINE_DEFAULT_BRANCH = 'main'
+
 
 @click.group()
 def secrel():
@@ -19,39 +27,24 @@ def pipeline():
 @pipeline.command()
 @click.option(
     '-r', '--ref',
-    default='main',
+    default=PIPELINE_DEFAULT_BRANCH,
     required=False,
     help='The git ref or branch of the pipeline to run.'
 )
 def run(ref):
     """Run the pipeline."""
-    subprocess.run(
-        [
-            'gh', 'workflow', 'run', 'pipeline.yml',
-            '-R', f'{ORGANIZATION}/{PIPELINE_NAME}',
-            '-r', ref
-        ],
-        check=True
-    )
-    # TODO: better handling for non-zero code returns (failures)
+    utils.run_workflow(PIPELINE_WORKFLOW, ORGANIZATION, PIPELINE_REPO, ref)
 
 @pipeline.command()
 @click.option(
     '-r', '--ref',
-    default='main',
+    default=PIPELINE_DEFAULT_BRANCH,
     required=False,
     help='The git ref or branch of the pipeline E2E tests to run.'
 )
 def test(ref):
     """Test the pipeline."""
-    subprocess.run(
-        [
-            'gh', 'workflow', 'run', 'e2e.yml',
-            '-R', f'{ORGANIZATION}/{PIPELINE_NAME}',
-            '-r', ref
-        ],
-        check=True
-    )
+    utils.run_workflow(PIPELINE_E2E_TESTS, ORGANIZATION, PIPELINE_REPO, ref)
 
 
 if __name__ == '__main__':
