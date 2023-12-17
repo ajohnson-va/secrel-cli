@@ -1,6 +1,6 @@
 import click
 
-import utils
+from . import utils
 
 # TODO: setuptools
 # TODO: implement CI
