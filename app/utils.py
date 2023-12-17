@@ -19,7 +19,7 @@ def handle_error(error, workflow, org, repo, ref):
         )
         sys.exit(1)
     print(
-        "ERROR: an unhandled exception occurred.\n"
+        "❌ ERROR: an unhandled exception occurred.\n"
         f"workflow file: {workflow}\n"
         f"pipeline: {org}/{repo}\n"
         f"branch: {ref}\n\n"
