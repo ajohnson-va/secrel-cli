@@ -10,7 +10,8 @@ on:
     branches: [ main ]
 
 env:
-  TEST_BRANCH: ${{ vars.TEST_BRANCH }} 
+  GH_TOKEN: ${{ github.token }}
+  TEST_BRANCH: ${{ vars.TEST_BRANCH }}
 
 jobs:
   build:
@@ -31,7 +32,7 @@ jobs:
         fi
         
     - name: Execute tests
-      run: pip install pytest && pytest -s
+      run: pip install pytest && pytest
 
     - name: Install app
       run: scripts/install-app.sh
