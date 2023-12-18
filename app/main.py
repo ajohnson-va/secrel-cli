@@ -2,8 +2,8 @@ import click
 
 from . import utils
 
-# TODO: setuptools
 # TODO: implement CI
+# TODO: README.md
 # TODO: gh issue
 # TODO: gh run list
 

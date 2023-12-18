@@ -7,12 +7,13 @@ setup(
     version='0.1.0',
     description='Command line interface for SecRel components',
     author='Anthony T. Johnson',
+    author_email='ajohnson@rise8.us',
     install_requires=['click'],
     python_requires='>=3.11',
-    # test_suite='tests',
+    test_suite='tests',
     entry_points={
         'console_scripts': [
             'secrel = app.main:secrel',
         ],
-    },
+    }
 )
