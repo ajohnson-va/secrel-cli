@@ -6,7 +6,7 @@ def handle_error(error, workflow, org, repo, ref):
     error_msg = error.stderr.strip()
     if "Workflow does not have 'workflow_dispatch' trigger" in error_msg:
         print(
-            "❌ ERROR: workflow_dispatch trigger not found.\n"
+            "❌ ERROR: workflow_dispatch trigger not found in workflow file.\n"
             f"workflow file: {workflow}\n"
             f"pipeline: {org}/{repo}\n"
             f"branch: {ref}\n\n"
