@@ -16,7 +16,7 @@ jobs:
 
       - name: Create Draft PR
         env:
-          GH_TOKEN: ${{ secrets.WRITE_PERM_SECREL_FGAT }}
+          GH_TOKEN: ${{ secrets.SECREL_FGAT }}
         run: |
           # Grab branch name from create trigger
           BRANCH_NAME=${{ github.event.ref }}
