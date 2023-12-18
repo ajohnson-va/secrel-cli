@@ -32,7 +32,7 @@ jobs:
         fi
         
     - name: Execute tests
-      run: pip install pytest && pytest
+      run: pip install pytest && pytest -s
 
     - name: Install app
       run: scripts/install-app.sh
