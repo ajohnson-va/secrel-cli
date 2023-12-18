@@ -38,4 +38,4 @@ jobs:
       run: secrel pipeline run -r ${{ env.TEST_BRANCH }}
 
     - name: Execute tests
-      run: pip install pytest && pytest -s
+      run: pip install pytest && pytest
