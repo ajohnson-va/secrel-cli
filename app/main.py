@@ -2,8 +2,9 @@ import click
 
 from . import utils
 
-# TODO: implement CI
+# TODO: tests in CI need appropriate GH token
 # TODO: README.md
+# TODO: cancel runs, especially test ones
 # TODO: gh issue
 # TODO: gh run list
 

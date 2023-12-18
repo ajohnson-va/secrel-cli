@@ -30,12 +30,12 @@ jobs:
         if [ -f requirements.txt ]; then
           python -m pip install -r requirements.txt;
         fi
-        
-    - name: Execute tests
-      run: pip install pytest && pytest -s
 
     - name: Install app
       run: scripts/install-app.sh
 
-    - name: Test secrel pipeline run command
+    - name: Test secrel command runs
       run: secrel pipeline run -r ${{ env.TEST_BRANCH }}
+
+    - name: Execute tests
+      run: pip install pytest && pytest -s
