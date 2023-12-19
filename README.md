@@ -1,11 +1,11 @@
 # SecRel CLI
 Command line interface for Secure Release (SecRel) pipelines that enable continuous Risk Management Framework (cRMF) compliance.
 
-### Installation
+## Installation
 
 To install the SecRel CLI locally for use or development, follow these steps:
 
-#### Clone the repository
+### Clone the repository
 
 Using the GitHub CLI:
 
@@ -19,7 +19,7 @@ Using Git:
 git clone ajohnson-va/secrel-cli
 ```
 
-#### Install the app
+### Install the app
 
 From the root of the cloned repository, run the install script:
 
@@ -37,7 +37,34 @@ source .venv/bin/activate
 ./scripts/install-app.sh
 ```
 
-### Usage
+## Configuration
+
+In order to use the SecRel CLI, you can either setup a configuration file named `.secrelrc` in your home directory:
+
+`~/.secrel`
+
+```ini
+[ORGANIZATION]
+NAME = some-organization
+
+[PIPELINE]
+REPO = secrel-demo-pipeline
+WORKFLOW = pipeline.yaml
+E2E_TESTS = e2e.yaml
+DEFAULT_BRANCH = main
+```
+
+Or, export the following environment variables:
+
+```bash
+export ORGANIZATION='some-organization'
+export PIPELINE_REPO='secrel-demo-pipeline'
+export PIPELINE_WORKFLOW='pipeline.yaml'
+export PIPELINE_E2E_TESTS='e2e.yaml'
+export PIPELINE_DEFAULT_BRANCH='main'
+```
+
+## Usage
 
 To use the SecRel CLI, run the `secrel` command:
 

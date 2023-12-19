@@ -11,7 +11,11 @@ on:
 
 env:
   GH_TOKEN: ${{ secrets.SECREL_FGAT }}
-  TEST_BRANCH: ${{ vars.TEST_BRANCH }}
+  ORGANIZATION: ${{ vars.ORGANIZATION }}
+  PIPELINE_REPO: ${{ vars.PIPELINE_REPO }}
+  PIPELINE_WORKFLOW: ${{ vars.PIPELINE_WORKFLOW }}
+  PIPELINE_E2E_TESTS: ${{ vars.PIPELINE_E2E_TESTS }}
+  PIPELINE_DEFAULT_BRANCH: ${{ vars.PIPELINE_DEFAULT_BRANCH }}
 
 jobs:
   build:
@@ -34,8 +38,8 @@ jobs:
     - name: Install app
       run: scripts/install-app.sh
 
-    - name: Test secrel command runs
-      run: secrel pipeline run -r ${{ env.TEST_BRANCH }}
+    - name: Test app installation
+      run: secrel pipeline run
 
     - name: Execute tests
       run: pip install pytest && pytest
