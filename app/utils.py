@@ -4,22 +4,33 @@ import os
 import configparser
 
 
-def handle_error(error, workflow, org, repo, ref):
+def handle_error(error, missing_keys=None,
+                 workflow=None, org=None, repo=None, ref=None):
+
+    if error == "missing_config_keys":
+        print(
+            "❌ ERROR: Missing value for configuration setting(s):\n\n" +
+            '\n'.join(missing_keys) + "\n\n"
+            "Please define in ~/.secrelrc "
+            "or set as environment variable(s) and try again."
+        )
+        sys.exit(1)
+
     error_msg = error.stderr.strip()
     if "Workflow does not have 'workflow_dispatch' trigger" in error_msg:
         print(
-            "❌ ERROR: workflow_dispatch trigger not found in workflow file.\n"
+            "❌ ERROR: no workflow_dispatch:' to\n"
+            f"{workflow} on braworkflow_dispatch trigger found.\n"
             f"workflow file: {workflow}\n"
             f"pipeline: {org}/{repo}\n"
             f"branch: {ref}\n\n"
             "Correct by specifying a different branch "
-            "using '-r' or '--ref':\n\n  "
+            "for the run using '-r' or '--ref':\n\n  "
             "secrel pipeline run -r your-branch\n\n"
-            "or, by adding 'workflow_dispatch:'\n"
-            f"to the 'on:' section of {workflow}\n"
-            f"on the branch {ref} and try again."
+            "or, by adding 'on.nch {ref} of the repo and try again."
         )
         sys.exit(1)
+
     print(
         "❌ ERROR: an unhandled exception occurred.\n"
         f"workflow file: {workflow}\n"
@@ -29,6 +40,7 @@ def handle_error(error, workflow, org, repo, ref):
     )
     sys.exit(1)
 
+
 def read_config():
     config = configparser.ConfigParser()
     home_dir = os.path.expanduser("~")
@@ -36,12 +48,12 @@ def read_config():
     if os.path.exists(config_file):
         config.read(config_file)
         return config
-    print(f"No .secrelrc file found in {home_dir}")
+
     return config
 
 def load_config():
     config = read_config()
-    return {
+    config_dict = {
         'ORGANIZATION': config.get(
             'ORGANIZATION', 'NAME',
             fallback=os.getenv('ORGANIZATION')
@@ -64,6 +76,16 @@ def load_config():
         ),
     }
 
+    missing_keys = [
+        key for key, value in config_dict.items() if value is None
+    ]
+
+    if missing_keys:
+        handle_error("missing_config_keys", missing_keys)
+
+    return config_dict
+
+
 def run_workflow(workflow, org, repo, ref):
     try:
         subprocess.run(
@@ -78,7 +100,11 @@ def run_workflow(workflow, org, repo, ref):
         )
     except subprocess.CalledProcessError as e:
         handle_error(
-            e, workflow, org, repo, ref
+            error=e,
+            workflow=workflow,
+            org=org,
+            repo=repo,
+            ref=ref
         )
 
 def cancel_workflow(run_id):
