@@ -37,6 +37,10 @@ source .venv/bin/activate
 ./scripts/install-app.sh
 ```
 
+### Configuration
+
+
+
 ### Usage
 
 To use the SecRel CLI, run the `secrel` command:

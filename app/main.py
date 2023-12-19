@@ -2,17 +2,17 @@ import click
 
 from . import utils
 
-# TODO: tests in CI need appropriate GH token
-# TODO: README.md
 # TODO: cancel runs, especially test ones
 # TODO: gh issue
 # TODO: gh run list
 
-ORGANIZATION = 'department-of-veterans-affairs'
-PIPELINE_REPO = 'lighthouse-tornado-secrel-pipeline'
-PIPELINE_WORKFLOW = 'pipeline.yml'
-PIPELINE_E2E_TESTS = 'e2e.yml'
-PIPELINE_DEFAULT_BRANCH = 'main'
+config = utils.load_config()
+
+ORGANIZATION = config['ORGANIZATION']
+PIPELINE_REPO = config['PIPELINE_REPO']
+PIPELINE_WORKFLOW = config['PIPELINE_WORKFLOW']
+PIPELINE_E2E_TESTS = config['PIPELINE_E2E_TESTS']
+PIPELINE_DEFAULT_BRANCH = config['PIPELINE_DEFAULT_BRANCH']
 
 
 @click.group()
